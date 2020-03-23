@@ -1,0 +1,314 @@
+\documentclass[11pt]{article}
+    \title{\textbf{Bash: команды, фишки и примеры}}
+    \author{Someanonimcoder}
+    \date{}
+    
+    \addtolength{\topmargin}{-3cm}
+    \addtolength{\textheight}{3cm}
+\usepackage{listings}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\section*{Intro}
+В этом документе я хочу собрать основные команды bash и объяснить их для тех, кто работает на mac или linux
+
+Любые дополнения, исправления и уточнения приветствуются.
+
+\section*{Basic}
+\subsection*{Особое}
+Некоторые "магические" папки:
+\begin{lstlisting}[language=bash]
+   ~    # home dir 
+   ..   # one dir up
+   -    # one dir back
+   .    # current dir
+\end{lstlisting}
+Перенаправление вывода команды:
+\begin{lstlisting}[language=bash]
+  # this is a comment. bash doesn't read it
+  # $ is a prompt for command input
+  # print output not in terminal but in file.txt
+  $ command > file.txt     
+  # send output of command1 to command2 as (n+1)th argument
+  $ command1 |command2 arg1 arg2 ... argn
+\end{lstlisting}
+Читай мануалы, \$\&\#\%*!
+\begin{lstlisting}[language=bash]
+  # print help for command
+  $ man command     
+\end{lstlisting}
+Как красиво попросить помощи у товарища? Читать километр вывода в вк или тг ну очень неудобно. Поэтому пожалуйста, используйте $pastein.it$. Это сайт, где ваш код или вывод терминала красиво оформится. Пример: $pastebin.com/hLw6DhQm$.
+
+Еще есть команда pastebinit, она требует установки, но позволяет делать так:
+\begin{lstlisting}[language=bash]
+  $ command
+  <A wall of strange errors>
+  $ command |pastebinit
+  pastebin.com/AbCdEfGh
+\end{lstlisting}
+Потом можно скопировать ссылку и отправить мне, ИВС, ММ, кому угодно еще. Так мы быстрее прочитает Эту вашу стену сообщений об ошибках и поможем. 
+
+ОСТОРОЖНО!!! Все тексты публичны, так что пароли, ключи, персональные данные... ну вы поняли.
+
+
+\subsection*{Навигация}
+Сюда я собрал команды для поиска и перемещения файлов, перехода по папкам, и всего такого
+\subsubsection*{cd}
+Переход в папку выполняется командой 
+\begin{lstlisting}[language=bash]
+  $ cd <name>
+\end{lstlisting}
+
+\subsubsection*{cp}
+Скопировать 
+\begin{lstlisting}[language=bash]
+  # copy file to dir
+  $ cp file dir
+  #copy file to dir as file2
+  $ cp file dir/file2
+\end{lstlisting}
+
+\subsubsection*{mv}
+Переместить(move)
+
+Идентично cp по логике работы
+
+\subsubsection*{rm}
+Удаляет файл. ВНИМАНИЕ!!! Удаляет не в корзину, а по-взрослому. Без $-rf$ не удаялет папки
+\begin{lstlisting}[language=bash]
+  #remove file
+  $ rm file
+  #remove directory
+  $ rm -rf dir
+\end{lstlisting}
+
+\subsubsection*{ls}
+Список файлов и папок можно просмотреть командой:
+\begin{lstlisting}[language=bash]
+  $ ls <name>
+\end{lstlisting}
+<name> здесь - имя той папки, список файлов в которой вы хотите увидеть
+
+
+
+\subsubsection*{file}
+Эта команда выдает информацию о файле:
+\begin{lstlisting}[language=bash]
+  $ file MeCl.inp 
+MeCl.inp: ASCII text, with CRLF line terminators
+  $ file DZ1.zip 
+DZ1.zip: Zip archive data, at least v2.0 to extract
+  $ file doc.docx 
+doc.docx: Microsoft Word 2007+
+\end{lstlisting}
+
+\subsubsection*{find}
+
+Чтобы найти файл из терминала, используйте эту команду. Немного примеров:
+\begin{lstlisting}[language=bash]
+  $ find .                    
+  #show all files in current dir
+  $ find Docs -name "*.pdf"   
+  #show files by name "*.pdf" in "Docs"
+  $ find Docs -name "*.pdf"   
+  #same without register(file=fIlE)
+  $find Docs -not -name "*.pdf"   
+  #same, but NOT "*.pdf" files
+\end{lstlisting}
+
+
+\subsection*{Работа с текстом}
+Команды для эффективного просмотра, редактирования, анализа текста из командной строки
+\subsubsection*{less}
+Показывает файл. Выход - $q$. Навигация - стрелочки и $pg up$/$pg dn$. Больше сказать и нечего.
+
+\subsubsection*{more}
+Более примитивный вариант less, что иронично с учетом их названий
+\subsubsection*{cat}
+Печатает файл в терминал. Пример, выводящий код программы лежащий в файле $rk.c$. Вывод сокращен
+\begin{lstlisting}[language=bash]
+$ cat rk.c
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
+#include <iostream>
+
+<..5000 lines..>
+
+  std::cout << result << std::endl;
+}
+\end{lstlisting}
+
+Не всегда удобно, особенно если файл на пару тысяч строк.
+\subsubsection*{head}
+Печатает <<голову>>- 10 первых строк
+\begin{lstlisting}[language=bash]
+ $ head rk.c
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
+#include <iostream>
+
+constexpr int size = 1000000;
+
+inline double f(double x, double y) { return x * x; }
+\end{lstlisting}
+
+\subsubsection*{tail}
+Печатает <<хвост>> - 10 последних строк
+\begin{lstlisting}[language=bash]
+ $ tail rk.c
+  for (int i = 0; i < threads; i++) {
+    std::cout << "Thread " << i << " " << 0 + (double)size / (double)threads * i
+              << " " << (double)size / (double)threads * (i + 1) << "\n";
+    result +=
+        solveoderungekutta((double)size / (double)threads * i,
+                           (double)size / (double)threads * (i + 1), 0, 0.0001);
+  }
+
+  std::cout << result << std::endl;
+}
+\end{lstlisting}
+
+\subsubsection*{grep}
+
+Ищет заданный паттерн(первый аргумент) внутри второго аргумента. В примере ищет "energy" в выводе первой команды. Именно так grep чаще всего и применяют.
+
+\begin{lstlisting}
+#second argument is output of previous command
+$ cat NH3.out |grep "energy" 
+Change in XC energy                          ...     0.000026139
+Gradient of the Kohn-Sham DFT energy:
+<...>
+Change in XC energy                          ...     0.000025435
+
+\end{lstlisting} 
+
+\subsubsection{sed}
+Мощный потоковый редактор файлов. Принимает два аргумента - строку-"шаблон" и то что хотим отредактировать
+\begin{lstlisting}
+ #s=substitute
+ $ echo "hello world" |sed "s/hello/goodbye/"
+goodbye world
+ #only first!
+ $ echo "hello world" |sed "s/l/6/"
+he6lo world
+ #g=global, all occurences
+ $ echo "hello world" |sed "s/l/6/g"
+he66o wor6d
+\end{lstlisting}
+
+\subsubsection*{nano}
+Няшный редактор в командной строке. Простой и интуитивно понятный.
+ \begin{lstlisting}[language=bash]
+ $ nano
+ GNU nano 4.8 New Buffer
+
+
+Text you are editing is here
+
+At the end there is a manul for nano - nano shows it!
+
+
+
+[ line 1/1 (100%), col 1/1 (100%), char 0/0 (0%) ]
+^G Get Help     ^O Write Out    ^W Where Is     ^K Cut Text     ^J Justify      ^C Cur Pos      M-U Undo       
+^X Exit         ^R Read File    ^\ Replace      ^U Paste Text   ^T To Spell     ^_ Go To Line   M-E Redo       
+\end{lstlisting}
+
+\subsubsection*{vi(vim)}
+Стращный редактор. Очень удобный отдельным гражданам, но сложный для начала работы. Если зашли случайно - <esc>, потом наберите $:q!$ и забудьте как страшный сон.
+
+\subsection*{Системное}
+Здесь собраны команды для получения информации о системе и взаимодействия с ней.
+
+\subsubsection*{top}
+Показывает процессы и загрузку машины. Некрасивый но вроде стоит везде "из коробки"
+\begin{lstlisting}[language=bash]
+Tasks: 263 total,   1 running, 262 sleeping,   0 stopped,   0 zombie        
+%Cpu(s):  1,4 us,  1,4 sy,  0,0 ni, 96,4 id,  0,0 wa,  0,0 hi,  0,7 si,  0  
+MiB Mem :   3821,4 total,    450,7 free,   1937,2 used,   1433,6 buff/cach  
+MiB Swap:   8192,0 total,   7674,7 free,    517,3 used.   1403,6 avail Mem  
+                                                                            
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+      
+ 125991 someano+  20   0    9352   3972   3296 R  12,5   0,1   0:00.02      
+      1 root      20   0  181408   5804   3976 S   0,0   0,1   0:05.15      
+      2 root      20   0       0      0      0 S   0,0   0,0   0:00.11      
+      3 root       0 -20       0      0      0 I   0,0   0,0   0:00.00      
+      4 root       0 -20       0      0      0 I   0,0   0,0   0:00.00      
+      8 root       0 -20       0      0      0 I   0,0   0,0   0:00.00    
+\end{lstlisting}
+\subsubsection*{htop}
+То же, но куда более красиво. Интерфейс простой и понятный, все удобно и круто, но требует установки
+\begin{lstlisting}[language=bash]
+  1  [                       0.0%]   5  [                       0.0%]       
+  2  [||                     1.3%]   6  [                       0.0%]       
+  3  [|                      0.7%]   7  [|                      0.7%]       
+  4  [                       0.0%]   8  [|                      0.7%]       
+  Mem[||||||||||||||||2.08G/3.73G]   Tasks: 92, 263 thr; 1 running          
+  Swp[||               536M/8.00G]   Load average: 0.55 0.61 0.54           
+                                     Uptime: 1 day, 08:58:42                
+                                                                            
+    PID USER      PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command    
+ 125857 someanoni  20   0  8332  4324  3412 R  0.7  0.1  0:00.09 htop       
+  95156 someanoni  20   0 3273M  419M 41392 S  0.7 11.0 17:51.77 /usr/bin/t 
+      1 root       20   0  177M  5804  3976 S  0.0  0.1  0:05.15 /sbin/init 
+    345 root       20   0 78068   104     0 S  0.0  0.0  0:00.00 /usr/bin/l 
+    357 root       20   0  8120  1228  1136 S  0.0  0.0  1:14.08 /usr/sbin/ 
+\end{lstlisting}
+\subsubsection*{sensors/powermetrix}
+\subsubsection*{reboot}
+Перезагрузка машины. Требует быть администратором при наличии других пользователей залогиненых на эту машину. Не имеет агрументов
+\subsubsection*{shutdown}
+Выключение. То же примечание что и для reboot. Принимает аргумент - время выключения.
+\begin{lstlisting}[language=bash]
+ $ shutdown now
+\end{lstlisting}
+\subsubsection*{date}
+Показывает дату в удобном виде. Может и установить ее, но это требует администраторских полномочий
+
+\begin{lstlisting}[language=bash]
+ $ date
+ Tue 24 MAR 2020 00:30:00
+\end{lstlisting}
+
+\subsubsection*{ping}
+Проверка связи с хостом. Хост - адрес сайта или ip. Посылает тестовые пакеты пока не убьешь процесс. Ну или до количества переданного с ключом $-c$
+\begin{lstlisting}[language=bash]
+ $ ping -c 3 google.com
+PING google.com (209.85.233.139) 56(84) bytes of data.
+64 bytes from lr-in-f139.1e100.net (209.85.233.139): icmp_seq=1 ttl=46 time=22.8 ms
+64 bytes from lr-in-f139.1e100.net (209.85.233.139): icmp_seq=2 ttl=46 time=24.3 ms
+64 bytes from lr-in-f139.1e100.net (209.85.233.139): icmp_seq=3 ttl=46 time=22.8 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 22.776/23.192/24.285/0.633 ms
+ $ ping 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=45 time=23.0 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=45 time=22.9 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=45 time=22.9 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=45 time=22.9 ms
+^C
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3003ms
+rtt min/avg/max/mdev = 22.857/22.917/22.971/0.041 ms
+
+\end{lstlisting}
+
+
+\section*{Middle}
+\section*{Pro}
+
+\end{document}
+
