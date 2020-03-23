@@ -15,14 +15,15 @@
 
 \maketitle
 \thispagestyle{empty}
+\tableofcontents
 
-\section*{Intro}
+\section{Intro}
 В этом документе я хочу собрать основные команды bash и объяснить их для тех, кто работает на mac или linux
 
 Любые дополнения, исправления и уточнения приветствуются.
 
-\section*{Basic}
-\subsection*{Особое}
+\section{Basic}
+\subsection{Особое}
 Некоторые "магические" папки:
 \begin{lstlisting}[language=bash]
    ~    # home dir 
@@ -58,15 +59,15 @@
 ОСТОРОЖНО!!! Все тексты публичны, так что пароли, ключи, персональные данные... ну вы поняли.
 
 
-\subsection*{Навигация}
+\subsection{Навигация}
 Сюда я собрал команды для поиска и перемещения файлов, перехода по папкам, и всего такого
-\subsubsection*{cd}
+\subsubsection{cd}
 Переход в папку выполняется командой 
 \begin{lstlisting}[language=bash]
   $ cd <name>
 \end{lstlisting}
 
-\subsubsection*{cp}
+\subsubsection{cp}
 Скопировать 
 \begin{lstlisting}[language=bash]
   # copy file to dir
@@ -75,12 +76,12 @@
   $ cp file dir/file2
 \end{lstlisting}
 
-\subsubsection*{mv}
+\subsubsection{mv}
 Переместить(move)
 
 Идентично cp по логике работы
 
-\subsubsection*{rm}
+\subsubsection{rm}
 Удаляет файл. ВНИМАНИЕ!!! Удаляет не в корзину, а по-взрослому. Без $-rf$ не удаялет папки
 \begin{lstlisting}[language=bash]
   #remove file
@@ -89,7 +90,7 @@
   $ rm -rf dir
 \end{lstlisting}
 
-\subsubsection*{ls}
+\subsubsection{ls}
 Список файлов и папок можно просмотреть командой:
 \begin{lstlisting}[language=bash]
   $ ls <name>
@@ -98,7 +99,7 @@
 
 
 
-\subsubsection*{file}
+\subsubsection{file}
 Эта команда выдает информацию о файле:
 \begin{lstlisting}[language=bash]
   $ file MeCl.inp 
@@ -109,7 +110,7 @@ DZ1.zip: Zip archive data, at least v2.0 to extract
 doc.docx: Microsoft Word 2007+
 \end{lstlisting}
 
-\subsubsection*{find}
+\subsubsection{find}
 
 Чтобы найти файл из терминала, используйте эту команду. Немного примеров:
 \begin{lstlisting}[language=bash]
@@ -124,14 +125,14 @@ doc.docx: Microsoft Word 2007+
 \end{lstlisting}
 
 
-\subsection*{Работа с текстом}
+\subsection{Работа с текстом}
 Команды для эффективного просмотра, редактирования, анализа текста из командной строки
-\subsubsection*{less}
+\subsubsection{less}
 Показывает файл. Выход - $q$. Навигация - стрелочки и $pg up$/$pg dn$. Больше сказать и нечего.
 
-\subsubsection*{more}
+\subsubsection{more}
 Более примитивный вариант less, что иронично с учетом их названий
-\subsubsection*{cat}
+\subsubsection{cat}
 Печатает файл в терминал. Пример, выводящий код программы лежащий в файле $rk.c$. Вывод сокращен
 \begin{lstlisting}[language=bash]
 $ cat rk.c
@@ -148,7 +149,7 @@ $ cat rk.c
 \end{lstlisting}
 
 Не всегда удобно, особенно если файл на пару тысяч строк.
-\subsubsection*{head}
+\subsubsection{head}
 Печатает <<голову>>- 10 первых строк
 \begin{lstlisting}[language=bash]
  $ head rk.c
@@ -163,7 +164,7 @@ constexpr int size = 1000000;
 inline double f(double x, double y) { return x * x; }
 \end{lstlisting}
 
-\subsubsection*{tail}
+\subsubsection{tail}
 Печатает <<хвост>> - 10 последних строк
 \begin{lstlisting}[language=bash]
  $ tail rk.c
@@ -179,7 +180,7 @@ inline double f(double x, double y) { return x * x; }
 }
 \end{lstlisting}
 
-\subsubsection*{grep}
+\subsubsection{grep}
 
 Ищет заданный паттерн(первый аргумент) внутри второго аргумента. В примере ищет "energy" в выводе первой команды. Именно так grep чаще всего и применяют.
 
@@ -207,7 +208,7 @@ he6lo world
 he66o wor6d
 \end{lstlisting}
 
-\subsubsection*{nano}
+\subsubsection{nano}
 Няшный редактор в командной строке. Простой и интуитивно понятный.
  \begin{lstlisting}[language=bash]
  $ nano
@@ -225,13 +226,20 @@ At the end there is a manul for nano - nano shows it!
 ^X Exit         ^R Read File    ^\ Replace      ^U Paste Text   ^T To Spell     ^_ Go To Line   M-E Redo       
 \end{lstlisting}
 
-\subsubsection*{vi(vim)}
+\subsubsection{vi(vim)}
 Стращный редактор. Очень удобный отдельным гражданам, но сложный для начала работы. Если зашли случайно - <esc>, потом наберите $:q!$ и забудьте как страшный сон.
 
-\subsection*{Системное}
-Здесь собраны команды для получения информации о системе и взаимодействия с ней.
+\subsection{Системное}
 
-\subsubsection*{top}
+\subsubsection{date}
+Показывает дату в удобном виде. Может и установить ее, но это требует администраторских полномочий
+
+\begin{lstlisting}[language=bash]
+ $ date
+ Tue 24 MAR 2020 00:30:00
+\end{lstlisting}
+
+\subsubsection{top}
 Показывает процессы и загрузку машины. Некрасивый но вроде стоит везде "из коробки"
 \begin{lstlisting}[language=bash]
 Tasks: 263 total,   1 running, 262 sleeping,   0 stopped,   0 zombie        
@@ -247,41 +255,23 @@ MiB Swap:   8192,0 total,   7674,7 free,    517,3 used.   1403,6 avail Mem
       4 root       0 -20       0      0      0 I   0,0   0,0   0:00.00      
       8 root       0 -20       0      0      0 I   0,0   0,0   0:00.00    
 \end{lstlisting}
-\subsubsection*{htop}
+\subsubsection{htop}
 То же, но куда более красиво. Интерфейс простой и понятный, все удобно и круто, но требует установки
 \begin{lstlisting}[language=bash]
-  1  [                       0.0%]   5  [                       0.0%]       
-  2  [||                     1.3%]   6  [                       0.0%]       
-  3  [|                      0.7%]   7  [|                      0.7%]       
-  4  [                       0.0%]   8  [|                      0.7%]       
-  Mem[||||||||||||||||2.08G/3.73G]   Tasks: 92, 263 thr; 1 running          
-  Swp[||               536M/8.00G]   Load average: 0.55 0.61 0.54           
+  1  [                   0.0%]   2  [||||||||||||||||||100.0%]       
+  Mem[||||||||||||2.08G/3.73G]   Tasks: 92, 263 thr; 1 running          
+  Swp[||           536M/8.00G]   Load average: 0.55 0.61 0.54           
                                      Uptime: 1 day, 08:58:42                
                                                                             
-    PID USER      PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command    
- 125857 someanoni  20   0  8332  4324  3412 R  0.7  0.1  0:00.09 htop       
-  95156 someanoni  20   0 3273M  419M 41392 S  0.7 11.0 17:51.77 /usr/bin/t 
-      1 root       20   0  177M  5804  3976 S  0.0  0.1  0:05.15 /sbin/init 
-    345 root       20   0 78068   104     0 S  0.0  0.0  0:00.00 /usr/bin/l 
-    357 root       20   0  8120  1228  1136 S  0.0  0.0  1:14.08 /usr/sbin/ 
-\end{lstlisting}
-\subsubsection*{sensors/powermetrix}
-\subsubsection*{reboot}
-Перезагрузка машины. Требует быть администратором при наличии других пользователей залогиненых на эту машину. Не имеет агрументов
-\subsubsection*{shutdown}
-Выключение. То же примечание что и для reboot. Принимает аргумент - время выключения.
-\begin{lstlisting}[language=bash]
- $ shutdown now
-\end{lstlisting}
-\subsubsection*{date}
-Показывает дату в удобном виде. Может и установить ее, но это требует администраторских полномочий
-
-\begin{lstlisting}[language=bash]
- $ date
- Tue 24 MAR 2020 00:30:00
+    PID USER   PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command    
+ 125857 somea  20   0  8332  4324  3412 R  0.7  0.1  0:00.09 hto..       
+  95156 somea  20   0 3273M  419M 41392 S  0.7 11.0 17:51.77 /us..
+      1 root   20   0  177M  5804  3976 S  0.0  0.1  0:05.15 /sb.. 
+    345 root   20   0 78068   104     0 S  0.0  0.0  0:00.00 /us.. 
+    357 root   20   0  8120  1228  1136 S  0.0  0.0  1:14.08 /us..
 \end{lstlisting}
 
-\subsubsection*{ping}
+\subsubsection{ping}
 Проверка связи с хостом. Хост - адрес сайта или ip. Посылает тестовые пакеты пока не убьешь процесс. Ну или до количества переданного с ключом $-c$
 \begin{lstlisting}[language=bash]
  $ ping -c 3 google.com
@@ -306,9 +296,19 @@ rtt min/avg/max/mdev = 22.857/22.917/22.971/0.041 ms
 
 \end{lstlisting}
 
+Здесь собраны команды для получения информации о системе и взаимодействия с ней.
 
-\section*{Middle}
-\section*{Pro}
+\subsubsection{reboot}
+Перезагрузка машины. Требует быть администратором при наличии других пользователей залогиненых на эту машину. Не имеет агрументов
+\subsubsection{shutdown}
+Выключение. То же примечание что и для reboot. Принимает аргумент - время выключения.
+\begin{lstlisting}[language=bash]
+ $ shutdown now
+\end{lstlisting}
+
+
+\section{Middle}
+\section{Pro}
 
 \end{document}
 
